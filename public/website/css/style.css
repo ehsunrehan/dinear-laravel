@@ -1,0 +1,1403 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #FBF9F7; /* 🤍 Warm Off-White - Professional canvas */
+    color: #1E1E1E; /* Dark Grey text */
+}
+/* ============================================================ */
+/* ========== 🏠 HOME PAGE (AR RESTAURANT MENU) ============== */
+/* ============================================================ */
+.home-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #FBF9F7; /* ✅ Burger page jaisa background */
+    padding: 20px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.home-container h1 {
+    font-size: 52px;
+    font-weight: 800;
+    color: #1E1E1E;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+}
+
+/* ✅ "AR Restaurant" ko orange highlight karo */
+.home-container h1 span {
+    color: #FF6B35;
+}
+
+.home-container p {
+    font-size: 18px;
+    color: #5A5A5A; /* ✅ Soft grey (black nahi) */
+    margin-bottom: 32px;
+    max-width: 450px;
+    line-height: 1.6;
+}
+
+/* ✅ Buttons wala container */
+.home-container .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap; /* ✅ Mobile par wrap ho jayen */
+}
+
+.home-container a {
+    text-decoration: none;
+}
+
+.home-container button {
+    height: 54px;
+    width: 130px;
+    background: #FFFFFF;
+    border: 2px solid #FF6B35;
+    color: #FF6B35;
+    border-radius: 60px; /* ✅ Pill shape */
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    letter-spacing: 0.3px;
+}
+
+/* ✅ Hover effect - Orange fill ho jaye */
+.home-container button:hover {
+    background: #FF6B35;
+    color: #FFFFFF;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.35);
+}
+
+/* ✅ Mobile Responsive (Chhoti screen) */
+@media (max-width: 480px) {
+    .home-container h1 {
+        font-size: 32px;
+    }
+    .home-container button {
+        height: 46px;
+        width: 110px;
+        font-size: 14px;
+    }
+    .home-container .button-group {
+        gap: 12px;
+    }
+}
+
+
+
+/* ===== NAVBAR (Aapka Chuna Hua Orange) ===== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 30px;
+    background: #FF6B35; /* 🔥 Vibrant Orange */
+    color: #FFFFFF;
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.35);
+    position: relative;
+}
+
+.navbar-left,
+.navbar-right {
+    display: flex;
+    flex: 1;
+}
+.navbar-center {
+    display: flex;
+    justify-content: center;
+}
+.logo {
+    height: 90px;
+    width: auto;
+}
+.navbar-right {
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: rgba(255, 255, 255, 0.15); /* Transparent white */
+    color: #fff;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+.social-icon:hover {
+    background-color: #FFFFFF;
+    color: #FF6B35;
+    transform: scale(1.05);
+}
+
+/* ===== FOOD CONTAINER ===== */
+.food-container {
+    display: flex;
+    min-height: calc(100vh - 120px); /* Navbar height adjust */
+    padding: 30px;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ===== 3D VIEWER SECTION ===== */
+.viewer-section {
+    flex: 1.2;
+    background: #FFFFFF; /* White card */
+    border-radius: 28px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+}
+
+.viewer-section h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1E1E1E;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+
+model-viewer {
+    width: 100%;
+    height: 480px;
+    background: #F4F1EE; /* Soft warm grey for 3D background */
+    border-radius: 20px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* ============================================================== */
+/* ========== 🔥 FIXED: DESKTOP DESCRIPTION (Right Sidebar) ===== */
+/* ============================================================== */
+.description {
+    flex: 0.8;
+    background: #FFFFFF;
+    border-radius: 28px;
+    padding: 32px 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    color: #1E1E1E;
+    display: flex;
+    flex-direction: column;
+    gap: 22px; /* ✅ HARR CHEEZ KE BEECH 22px KA PERMANENT GAP */
+}
+
+/* Saare bachon (children) ke margins ZERO - Sirf parent gap kaam karega */
+.description h2,
+.description h3,
+.description p,
+.description .price-tag,
+.description ul,
+.description .recommendations {
+    margin: 0;
+}
+
+/* Recommended ki border aur spacing */
+.description .recommendations {
+    padding-top: 20px;
+    border-top: 2px solid #EBE7E3;
+    margin: 0;
+}
+.description .recommendations h2 {
+    margin-bottom: 16px;
+}
+
+/* Ingredients ke list items (badges) */
+.description ul {
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.description ul li {
+    font-size: 15px;
+    color: #1E1E1E;
+    background: #F4F1EE;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-weight: 500;
+}
+
+/* ⭐ DESI YELLOW PRICE TAG */
+.price-tag {
+    background: #D4A02B;
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 22px;
+    padding: 8px 24px;
+    border-radius: 50px;
+    display: inline-block;
+    box-shadow: 0 6px 16px rgba(212, 160, 43, 0.35);
+    width: fit-content;
+    letter-spacing: 0.5px;
+}
+
+/* ===== BUTTONS (AR & Menu) ===== */
+.buttons {
+    margin-top: 25px;
+    display: flex;
+    gap: 14px;
+}
+
+.ar-btn {
+    background: #FF6B35;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 60px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 14px rgba(255, 107, 53, 0.35);
+}
+.ar-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.4);
+}
+
+#menu-btn {
+    background: #1E1E1E;
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 60px;
+    font-size: 20px;
+    cursor: pointer;
+    display: none; /* Hidden on desktop */
+}
+#menu-btn:hover {
+    background: #333;
+}
+
+/* ============================================================== */
+/* ========== 🍔 FIXED: RECOMMENDATIONS (CARDS BADE) ============ */
+/* ============================================================== */
+.rec-grid{
+    display:flex;
+    flex-direction:column;
+    align-items: center;  /* 👈 Ye add karo */
+    gap:20px;
+}
+
+.rec-card{
+    display:flex;
+    flex-direction:column;   /* 👈 Image ke neeche text */
+    justify-content:center;
+    align-items:center;
+
+    width:100%;
+    max-width:280px;
+    min-height:170px;
+
+    padding:18px;
+
+    background:#fff;
+    border-radius:22px;
+
+    text-decoration:none;    /* 👈 Underline remove */
+    color:#1E1E1E;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    transition:.3s;
+}
+
+.rec-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 14px 35px rgba(0,0,0,.12);
+}
+
+
+
+.rec-card img{
+    width:110px;
+    height:110px;
+    object-fit:cover;
+    border-radius:50%;
+    margin-bottom:10px;
+    border:4px solid #FBF9F7;
+    background:#FBF9F7;
+
+
+}
+
+
+
+.rec-card p{
+    margin:0;
+    font-size:16px;
+    font-weight:700;
+    text-align:center;
+    text-decoration:none;
+}
+
+
+.rec-card,
+.rec-card:link,
+.rec-card:visited{
+    text-decoration:none;
+}
+
+.rec-card p{
+    text-decoration:none;
+}
+.rec-card:hover {
+    transform: scale(1.04);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+.rec-card img{
+    width:140px;
+    height:140px;
+    object-fit:contain;
+    border-radius:18px;
+    display:block;
+    margin-bottom:12px;
+    background:#FBF9F7;
+}
+.rec-card p {
+    margin-top: 12px;
+    font-weight: 700;
+    font-size: 16px; /* Text thora bada */
+    color: #1E1E1E;
+}
+
+/* ============================================================== */
+/* ========== 🔥 FIXED: MOBILE SIDEBAR ========================== */
+/* ============================================================== */
+#sidebar {
+    position: fixed;
+    top: 0;
+    right: -340px;
+    width: 320px;
+    height: 100%;
+    background: #FFFFFF;
+    color: #1E1E1E;
+    padding: 30px 25px;
+    transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    overflow-y: auto;
+    box-shadow: -8px 0 40px rgba(0, 0, 0, 0.08);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 22px; /* ✅ YAHAN BHI 22px KA SAME GAP */
+}
+
+/* Sidebar ke saare bachon (children) ke margins ZERO */
+#sidebar h2,
+#sidebar h3,
+#sidebar p,
+#sidebar .price-tag,
+#sidebar ul,
+#sidebar .recommendations,
+#sidebar #close-btn {
+    margin: 0;
+}
+
+/* Close button ko bilkul upar rakho */
+#sidebar #close-btn {
+    text-align: right;
+    font-size: 24px;
+    cursor: pointer;
+    color: #1E1E1E;
+}
+
+/* Sidebar mein Recommended ki border */
+#sidebar .recommendations {
+    padding-top: 20px;
+    border-top: 2px solid #EBE7E3;
+    margin: 0;
+}
+#sidebar .recommendations h2 {
+    margin-bottom: 16px;
+}
+
+#sidebar ul {
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+#sidebar ul li {
+    background: #F4F1EE;
+    padding: 6px 16px;
+    border-radius: 50px;
+    color: #1E1E1E;
+}
+#sidebar .price-tag {
+    background: #D4A02B;
+    color: white;
+    padding: 6px 20px;
+    border-radius: 50px;
+    display: inline-block;
+    font-weight: 800;
+    width: fit-content;
+}
+
+/* ===== FAKE AR MODE ===== */
+.fake-ar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 9999;
+}
+.hidden {
+    display: none;
+}
+.ar-topbar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    padding-right: 20px;
+}
+.ar-topbar button {
+    padding: 12px 40px 12px 20px;
+    background: #FF3B30;
+    color: white;
+    border: none;
+    border-radius: 60px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* ====================================== */
+/* ========== RESPONSIVE =============== */
+/* ====================================== */
+
+
+/* ===== TABLET (769px - 992px) - HORIZONTAL ===== */
+@media (min-width: 769px) and (max-width: 992px) {
+    .food-container {
+        flex-direction: row !important;
+        padding: 20px;
+        gap: 20px;
+    }
+    .description {
+        display: flex !important; /* Direct dikhega */
+    }
+    #menu-btn {
+        display: none !important; /* Menu button chhupa */
+    }
+    model-viewer {
+        height: 400px;
+    }
+    .rec-card {
+        max-width: 180px;
+    }
+}
+
+/* ===== MOBILE (<= 768px) - VERTICAL (Description Sidebar mein) ===== */
+@media (max-width: 768px) {
+    /* ✅ Sab se zaroori: Container ko VERTICAL karo */
+    .food-container {
+        flex-direction: column !important;
+        padding: 10px !important;
+        gap: 15px;
+    }
+    
+    /* ✅ Description ko neeche se hatao (sirf sidebar mein rakho) */
+    .description {
+        display: none !important;
+    }
+    
+    /* ✅ Menu button dikhao */
+    #menu-btn {
+        display: block !important;
+    }
+
+    /* ----- Baqi Mobile Styling (Waise ki waise) ----- */
+    .navbar {
+        flex-wrap: wrap;
+        padding: 10px 16px;
+        justify-content: center;
+    }
+    .navbar-left {
+        display: none;
+    }
+    .navbar-center {
+        flex: 1 1 100%;
+        justify-content: center;
+        order: -1;
+        margin-bottom: 4px;
+    }
+    .navbar-right {
+        flex: 1;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+    .logo {
+        height: 70px;
+    }
+    .social-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+    .viewer-section {
+        padding: 16px;
+        border-radius: 20px;
+        width: 100%;
+    }
+    .viewer-section h1 {
+        font-size: 26px;
+    }
+    model-viewer {
+        height: 380px !important; /* Thora bada kiya */
+    }
+    .buttons {
+        flex-wrap: wrap;
+    }
+    .ar-btn {
+        flex: 1;
+        text-align: center;
+        padding: 12px;
+    }
+    #sidebar {
+        width: 85%;
+        right: -90%;
+        padding: 24px 20px;
+    }
+
+.rec-card img{
+    width:140px;
+    height:140px;
+    object-fit:contain;
+    border-radius:18px;
+    display:block;
+}
+    .rec-card p {
+        font-size: 14px;
+        font-weight: 700;
+        margin-top: 8px;
+        color: #1E1E1E;
+    }
+}
+
+@media (max-width: 480px) {
+    /* ✅ Container ko VERTICAL karo */
+    .food-container {
+        flex-direction: column !important;
+        padding: 8px !important;
+        gap: 10px;
+    }
+    
+    /* ✅ Description ko neeche se hatao (sidebar mein rakho) */
+    .description {
+        display: none !important;
+    }
+    
+    /* ✅ Menu button dikhao */
+    #menu-btn {
+        display: block !important;
+    }
+    
+    /* ✅ 3D Viewer ko full width aur chhota */
+    .viewer-section {
+        padding: 12px;
+        border-radius: 16px;
+        width: 100%;
+    }
+    .viewer-section h1 {
+        font-size: 22px;
+    }
+    model-viewer {
+        height: 320px !important;
+    }
+    
+    /* ✅ Buttons */
+    .buttons {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .ar-btn {
+        flex: 1;
+        text-align: center;
+        padding: 10px;
+        font-size: 14px;
+    }
+    
+    /* ✅ Recommended Cards - Chhoti screen par fit */
+    .rec-grid {
+        justify-content: center;
+        gap: 10px;
+    }
+.rec-card{
+    width:100%;
+    max-width:260px;
+    padding:16px;
+    border-radius:18px;
+}
+
+.rec-card img{
+    width:130px;
+    height:130px;
+    object-fit:contain;
+    border-radius:18px;
+}
+    .rec-card p {
+        font-size: 12px;
+        margin-top: 6px;
+    }
+    
+    /* ✅ Sidebar - Chhoti screen par */
+    #sidebar {
+        width: 90%;
+        right: -95%;
+        padding: 20px 16px;
+        gap: 18px;
+    }
+    #sidebar h2 {
+        font-size: 20px;
+    }
+    #sidebar h3 {
+        font-size: 16px;
+    }
+    #sidebar p {
+        font-size: 14px;
+    }
+    #sidebar ul li {
+        font-size: 13px;
+        padding: 4px 14px;
+    }
+    #sidebar .price-tag {
+        font-size: 18px;
+        padding: 6px 16px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== FINAL FIX: Mobile Vertical (<= 768px) ===== */
+@media (max-width: 768px) {
+    /* ✅ Container ko VERTICAL kar do */
+    .food-container {
+        flex-direction: column !important;
+        padding: 10px !important;
+        gap: 15px !important;
+    }
+    
+    /* ✅ Description ko neeche se hatao (sidebar mein rakho) */
+    .description {
+        display: none !important;
+    }
+    
+    /* ✅ Menu button dikhao */
+    #menu-btn {
+        display: block !important;
+    }
+    
+    /* ✅ 3D Viewer ko full width */
+    .viewer-section {
+        width: 100% !important;
+    }
+    model-viewer {
+        height: 380px !important;
+    }
+    
+    /* ✅ Recommended Cards */
+    .rec-card {
+        max-width: 160px !important;
+        flex: 0 0 calc(50% - 10px) !important;
+    }
+    .rec-card img {
+        height: 140px !important;
+    }
+}
+
+
+
+
+
+
+@media (max-width:768px){
+
+.rec-grid{
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+}
+
+.rec-card{
+    width:100%;
+    max-width:260px;
+}
+
+}
+
+
+
+
+/*=============================
+        FOODS PAGE
+=============================*/
+
+.foods-page{
+
+max-width:1300px;
+
+margin:auto;
+
+padding:40px 20px;
+
+}
+
+.foods-page h1{
+
+text-align:center;
+
+margin-bottom:35px;
+
+font-size:38px;
+
+font-weight:800;
+
+}
+
+.foods-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+gap:30px;
+
+}
+
+.food-card{
+
+background:#fff;
+
+border-radius:24px;
+
+padding:25px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+text-align:center;
+
+transition:.3s;
+
+}
+
+.food-card:hover{
+
+transform:translateY(-6px);
+
+}
+
+.food-card img{
+
+width:220px;
+
+height:220px;
+
+object-fit:contain;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.food-card img:hover{
+
+transform:scale(1.05);
+
+}
+
+.food-card h2{
+
+margin:18px 0;
+
+font-size:24px;
+
+}
+
+.food-view-btn{
+
+background:#FF6B35;
+
+border:none;
+
+color:#fff;
+
+padding:12px 28px;
+
+border-radius:50px;
+
+font-size:16px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.food-view-btn:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 8px 20px rgba(255,107,53,.35);
+
+}
+
+
+
+@media(max-width:768px){
+
+.food-card img{
+
+width:170px;
+
+height:170px;
+
+}
+
+.foods-page h1{
+
+font-size:30px;
+
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.foods-page{
+
+max-width:1300px;
+
+margin:auto;
+
+padding:40px 20px;
+
+}
+
+.foods-page h1{
+
+text-align:center;
+
+font-size:42px;
+
+margin-bottom:40px;
+
+}
+
+.foods-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+
+gap:30px;
+
+}
+
+.food-card{
+
+background:white;
+
+border-radius:28px;
+
+padding:22px;
+
+text-align:center;
+
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+transition:.35s;
+
+}
+
+.food-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.food-card img{
+
+width:210px;
+
+height:210px;
+
+object-fit:contain;
+
+cursor:pointer;
+
+transition:.35s;
+
+}
+
+.food-card img:hover{
+
+transform:scale(1.08);
+
+}
+
+.food-card h2{
+
+margin:20px 0;
+
+font-size:24px;
+
+}
+
+.food-view-btn{
+
+background:#FF6B35;
+
+color:white;
+
+border:none;
+
+padding:12px 30px;
+
+border-radius:50px;
+
+font-size:16px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+}
+
+.food-view-btn:hover{
+
+background:#ff5a20;
+
+}
+
+
+
+
+
+
+
+/*======================================
+        FOODS PAGE FINAL
+======================================*/
+
+.foods-page{
+
+max-width:1400px;
+
+margin:auto;
+
+padding:50px 25px;
+
+}
+
+.foods-page h1{
+
+font-size:42px;
+
+font-weight:800;
+
+text-align:center;
+
+margin-bottom:10px;
+
+color:#1E1E1E;
+
+}
+
+.foods-subtitle{
+
+text-align:center;
+
+font-size:17px;
+
+color:#777;
+
+margin-bottom:45px;
+
+}
+
+
+
+.food-card{
+
+background:#fff;
+
+border-radius:28px;
+
+padding:30px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.07);
+
+transition:.35s;
+
+text-align:center;
+
+}
+
+.food-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 20px 45px rgba(0,0,0,.10);
+
+}
+
+
+.food-card img{
+
+width:220px;
+
+height:220px;
+
+object-fit:contain;
+
+cursor:pointer;
+
+transition:.35s;
+
+}
+
+.food-card img:hover{
+
+transform:scale(1.06);
+
+}
+
+
+
+.food-view-btn{
+
+background:#FF6B35;
+
+border:none;
+
+color:white;
+
+padding:14px 35px;
+
+border-radius:50px;
+
+font-size:16px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.food-view-btn:hover{
+
+background:#e75a28;
+
+}
+
+@media(max-width:768px){
+
+.foods-page{
+
+padding:25px 15px;
+
+}
+
+.foods-page h1{
+
+font-size:30px;
+
+}
+
+.foods-subtitle{
+
+font-size:15px;
+
+margin-bottom:30px;
+
+}
+
+.food-card img{
+
+width:170px;
+
+height:170px;
+
+}
+
+}
+
+
+
+
+
+/* ==========================
+      FOOD PREVIEW POPUP
+========================== */
+
+#food-popup{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.75);
+
+    backdrop-filter:blur(8px);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:99999;
+
+}
+
+#food-popup.hidden{
+
+    display:none;
+
+}
+
+
+
+
+#popup-model{
+
+    width:85%;
+
+    max-width:900px;
+
+    height:80vh;
+
+    background:#FBF9F7;
+
+    border-radius:25px;
+
+}
+
+
+
+
+#close-food-popup{
+
+    position:absolute;
+
+    top:25px;
+
+    right:25px;
+
+    background:#FF6B35;
+
+    color:white;
+
+    border:none;
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+
+    align-items: center;
+
+}
+
+/* #close-food-popup:hover{
+
+    transform:rotate(90deg);
+
+} */
+
+
+
+
+
+@media(max-width:768px){
+
+#popup-model{
+
+width:95%;
+
+height:65vh;
+
+}
+
+#close-food-popup{
+
+width:48px;
+
+height:48px;
+
+font-size:18px;
+
+
+
+}
+
+}
+
+
+
+
+/* ==========================
+   POPUP ANIMATION
+========================== */
+
+#food-popup{
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.35s ease;
+
+}
+
+#food-popup:not(.hidden){
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+#popup-model{
+
+    transform:scale(.88);
+
+    transition:.35s ease;
+
+}
+
+#food-popup:not(.hidden) #popup-model{
+
+    transform:scale(1);
+
+}
+
+
+
+
+
+
+.food-card{
+
+overflow:hidden;
+
+}
+
+.food-card:hover img{
+
+transform:scale(1.08);
+
+}
+
+.food-card:hover .food-view-btn{
+
+box-shadow:0 12px 25px rgba(255,107,53,.35);
+
+}
+
+
+
+
+
+@media(max-width:768px){
+
+.food-card{
+
+padding:20px;
+
+}
+
+.food-card h2{
+
+font-size:22px;
+
+}
+
+.food-card img{
+
+width:180px;
+
+height:180px;
+
+}
+
+}
+
+
+
+
+
+.food-view-btn{
+
+transition:.3s;
+
+}
+
+.food-view-btn:hover{
+
+transform:translateY(-3px);
+
+}
+
+.food-view-btn:active{
+
+transform:scale(.96);
+
+}
+
+
+
+
+
