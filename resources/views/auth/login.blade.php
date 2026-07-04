@@ -1,8 +1,6 @@
 <x-guest-layout>
     <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+       <x-slot name="logo"></x-slot>
 
         <x-validation-errors class="mb-4" />
 
@@ -11,7 +9,7 @@
                 {{ $value }}
             </div>
         @endsession
-
+        <input type="hidden" name="previous_page" id="previous_page">
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
@@ -42,7 +40,31 @@
                 <x-button class="ms-4">
                     {{ __('Log in') }}
                 </x-button>
+
             </div>
+
+
+            <div class="text-center mt-6">
+
+<span class="text-gray-500">
+
+Don't have an account?
+
+</span>
+
+<a href="{{ route('register') }}"
+
+class="text-orange-500 font-semibold ml-1">
+
+Register
+
+</a>
+
+</div>
         </form>
+        <script>
+document.getElementById('previous_page').value =
+    sessionStorage.getItem('previous_page') ?? '/';
+</script>
     </x-authentication-card>
 </x-guest-layout>

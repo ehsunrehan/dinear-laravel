@@ -6,6 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script type="module"
+src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </script>
 
@@ -17,34 +22,50 @@
 
 <body>
 
-<nav class="navbar">
+      <nav class="navbar">
 
     <div class="navbar-left"></div>
 
     <div class="navbar-center">
-
-        <img src="{{ asset('website/images/logo.jpg') }}"
-             class="logo"
-             alt="Logo">
-
+        <img src="{{ asset('website/images/logo.jpg') }}" alt="Brand Logo" class="logo">
     </div>
 
     <div class="navbar-right">
 
-        <a href="#" class="social-icon">
+        @guest
+            <a href="{{ route('login') }}" class="nav-btn">Login</a>
+
+            <a href="{{ route('register') }}" class="nav-btn register-btn">Register</a>
+        @else
+
+            <span class="user-name">
+                {{ Auth::user()->name }}
+            </span>
+
+            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                @csrf
+                <button type="submit" class="nav-btn logout-btn">
+                    Logout
+                </button>
+            </form>
+
+        @endguest
+
+        <a href="#" class="social-icon" aria-label="Facebook">
             <i class="fab fa-facebook-f"></i>
         </a>
 
-        <a href="#" class="social-icon">
+        <a href="#" class="social-icon" aria-label="Instagram">
             <i class="fab fa-instagram"></i>
         </a>
 
-        <a href="#" class="social-icon">
+        <a href="#" class="social-icon" aria-label="YouTube">
             <i class="fab fa-youtube"></i>
         </a>
 
     </div>
 
+</nav>
 </nav>
 
 <div class="foods-page">
@@ -66,15 +87,15 @@ Tap any dish to preview it in 3D or open its page.
 <img
 class="food-preview"
 
-src="{{ asset('website/images/'.$food['image']) }}"
+src="{{ asset('food/images/'.$food->image) }}"
 
-data-model="{{ asset('website/models/'.$food['model']) }}"
+data-model="{{ asset('food/models/'.$food->model) }}"
 
-alt="{{ $food['name'] }}">
+alt="{{ $food->name }}">
 
-<h2>{{ $food['name'] }}</h2>
+<h2>{{ $food->name }}</h2>
 
-<a href="{{ route($food['route']) }}">
+<a href="{{ route('user.food.show',$food->id) }}">
 
 <button class="food-view-btn">
 
@@ -87,7 +108,6 @@ View
 </div>
 
 @endforeach
-
 </div>
 
 </div>
@@ -157,6 +177,29 @@ popupModel.removeAttribute("src");
 
 });
 
+</script>
+
+<script>
+const loginBtn = document.querySelector(".nav-btn");
+
+if (loginBtn) {
+
+    loginBtn.addEventListener("click", function () {
+
+        fetch("/save-previous-page", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({
+                previous_page: window.location.pathname
+            })
+        });
+
+    });
+
+}
 </script>
 
 

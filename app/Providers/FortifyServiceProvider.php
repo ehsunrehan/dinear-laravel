@@ -13,6 +13,9 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Laravel\Fortify\Contracts\LoginResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -36,10 +39,30 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
 
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
 
-            return Limit::perMinute(5)->by($throttleKey);
-        });
+    $throttleKey = Str::transliterate(
+        Str::lower($request->input(Fortify::username())).'|'.$request->ip()
+    );
+
+    return Limit::perMinute(5)->by($throttleKey);
+
+});
+$this->app->singleton(LoginResponse::class, function () {
+
+    return new class implements LoginResponse {
+
+        public function toResponse($request)
+        {
+            if (Auth::user()->user_role == 1) {
+                return redirect('/admin/food');
+            }
+
+            return redirect(Session::pull('previous_page', '/'));
+        }
+
+    };
+
+});
 
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));

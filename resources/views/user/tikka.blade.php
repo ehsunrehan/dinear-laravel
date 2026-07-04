@@ -19,26 +19,53 @@
 <body>
 
 
+      <nav class="navbar">
 
+    <div class="navbar-left"></div>
 
-        <nav class="navbar">
-  <div class="navbar-left"></div>
-  
-  <div class="navbar-center">
-    <img src="{{ asset('website/images/logo.jpg')}}" alt="Brand Logo" class="logo">
-  </div>
-  
-  <div class="navbar-right">
-    <a href="#" class="social-icon" aria-label="Facebook">
-      <i class="fab fa-facebook-f"></i>
-    </a>
-    <a href="#" class="social-icon" aria-label="Instagram">
-      <i class="fab fa-instagram"></i>
-    </a>
-    <a href="#" class="social-icon" aria-label="YouTube">
-      <i class="fab fa-youtube"></i>
-    </a>
-  </div>
+    <div class="navbar-center">
+        <img src="{{ asset('website/images/logo.jpg') }}" alt="Brand Logo" class="logo">
+    </div>
+
+    <div class="navbar-right">
+
+        @guest
+            <a href="{{ route('login') }}"
+   class="nav-btn"
+   onclick="sessionStorage.setItem('previous_page', window.location.href)">
+    Login
+</a>
+
+            <a href="{{ route('register') }}" class="nav-btn register-btn">Register</a>
+        @else
+
+            <span class="user-name">
+                {{ Auth::user()->name }}
+            </span>
+
+            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                @csrf
+                <button type="submit" class="nav-btn logout-btn">
+                    Logout
+                </button>
+            </form>
+
+        @endguest
+
+        <a href="#" class="social-icon" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a href="#" class="social-icon" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+
+        <a href="#" class="social-icon" aria-label="YouTube">
+            <i class="fab fa-youtube"></i>
+        </a>
+
+    </div>
+
 </nav>
 
 
@@ -243,6 +270,31 @@ View All
     </div>
 
     <script src="{{ asset('website/js/main.js')}}"></script>
+
+
+    <script>
+const loginBtn = document.querySelector(".nav-btn");
+
+if (loginBtn) {
+
+    loginBtn.addEventListener("click", function () {
+
+        fetch("/save-previous-page", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({
+                previous_page: window.location.pathname
+            })
+        });
+
+    });
+
+}
+</script>
+
 
 </body>
 

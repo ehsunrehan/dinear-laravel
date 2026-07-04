@@ -2,39 +2,145 @@ const menuBtn = document.getElementById("menu-btn");
 const sidebar = document.getElementById("sidebar");
 const closeBtn = document.getElementById("close-btn");
 
-// sidebar
-if(menuBtn){
+if(menuBtn && sidebar){
+
     menuBtn.addEventListener("click",()=>{
-        sidebar.style.right="0";
+
+        sidebar.classList.add("active");
+
+        document.body.style.overflow="hidden";
+
     });
+
 }
 
-if(closeBtn){
-    closeBtn.addEventListener("click",()=>{
-        sidebar.style.right="-320px";
-    });
+if(closeBtn && sidebar){
+
+    closeBtn.addEventListener("click",closeSidebar);
+
 }
+
+function closeSidebar(){
+
+    sidebar.classList.remove("active");
+
+    document.body.style.overflow="auto";
+
+}
+
+
+// Click outside = close
+
+document.addEventListener("click",(e)=>{
+
+    if(!sidebar || !menuBtn) return;
+
+    if(
+
+        sidebar.classList.contains("active")
+
+        &&
+
+        !sidebar.contains(e.target)
+
+        &&
+
+        !menuBtn.contains(e.target)
+
+    ){
+
+        closeSidebar();
+
+    }
+
+});
+
+
+// ESC key
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key==="Escape"){
+
+        closeSidebar();
+
+    }
+
+});
 
 
 // =======================
-// FAKE AR SYSTEM
+// VIEW IN AR
 // =======================
 
 const arBtn = document.getElementById("ar-btn");
 const fakeAR = document.getElementById("fake-ar");
 const closeAR = document.getElementById("close-ar");
+const arModel = document.querySelector("#fake-ar model-viewer");
+
+function closeARPopup(){
+
+    fakeAR.classList.add("hidden");
+
+    document.body.style.overflow="auto";
+
+    if(arModel){
+        arModel.removeAttribute("src");
+    }
+
+}
 
 if(arBtn){
+
     arBtn.addEventListener("click",()=>{
+
         fakeAR.classList.remove("hidden");
+
+        document.body.style.overflow="hidden";
+
+        if(arModel){
+
+            arModel.src=document.querySelector(".food-left model-viewer").src;
+
+        }
+
     });
+
 }
 
 if(closeAR){
-    closeAR.addEventListener("click",()=>{
-        fakeAR.classList.add("hidden");
-    });
+
+    closeAR.addEventListener("click",closeARPopup);
+
 }
+
+// Outside Click
+
+if(fakeAR){
+
+    fakeAR.addEventListener("click",(e)=>{
+
+        if(e.target===fakeAR){
+
+            closeARPopup();
+
+        }
+
+    });
+
+}
+
+// ESC Close
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key==="Escape"){
+
+        closeARPopup();
+
+    }
+
+});
 
 
 
@@ -84,19 +190,23 @@ if(closeFoodPopup){
 
 
 
-foodPopup.addEventListener("click",(e)=>{
+if(foodPopup){
 
-    if(e.target===foodPopup){
+    foodPopup.addEventListener("click",(e)=>{
 
-        foodPopup.classList.add("hidden");
+        if(e.target===foodPopup){
 
-        popupModel.removeAttribute("src");
+            foodPopup.classList.add("hidden");
 
-        document.body.style.overflow="auto";
+            popupModel.removeAttribute("src");
 
-    }
+            document.body.style.overflow="auto";
 
-});
+        }
+
+    });
+
+}
 
 
 
@@ -124,19 +234,22 @@ document.addEventListener("keydown",(e)=>{
 });
 
 
+if(foodPreviews.length){
 
-foodPreviews.forEach((img)=>{
+    foodPreviews.forEach((img)=>{
 
-    img.addEventListener("click",()=>{
+        img.addEventListener("click",()=>{
 
-        document.body.style.cursor="progress";
+            document.body.style.cursor="progress";
 
-        setTimeout(()=>{
+            setTimeout(()=>{
 
-            document.body.style.cursor="default";
+                document.body.style.cursor="default";
 
-        },10);
+            },10);
+
+        });
 
     });
 
-});
+}

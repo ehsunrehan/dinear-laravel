@@ -2,6 +2,24 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\FoodController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
+
+
+
+
+Route::post('/save-previous-page', function (Request $request) {
+
+    Session::put('previous_page', $request->previous_page);
+
+    return response()->json([
+        'success' => true
+    ]);
+
+});
 
 
 Route::get('/', [WebController::class, 'index']);
@@ -17,6 +35,32 @@ Route::get('/boti_roll', [WebController::class, 'boti_roll'])->name('boti_roll.3
 
 Route::get('/foods', [WebController::class, 'foods'])->name('foods');
 
+    Route::get('/food/{food}', [WebController::class,'showFood'])
+        ->name('user.food.show');
+
+Route::middleware([
+    'auth',
+    'verified'
+])->prefix('admin')->group(function () {
+
+    Route::resource('food', FoodController::class);
+
+});
+
+
+
+// if(Auth::id()){
+// if(Auth::User()->user_role == "0"){
+// return view('user.index');
+// }
+// else{
+// return view('admin.index');
+// }
+// }
+// else{
+// return redirect()->back();
+// }
+
 
 
 
@@ -26,7 +70,15 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+
     Route::get('/dashboard', function () {
-        return view('dashboard');
+
+        if (Auth::user()->user_role == 1) {
+            return redirect('/admin/food');
+        }
+
+        return redirect('/');
+
     })->name('dashboard');
+
 });

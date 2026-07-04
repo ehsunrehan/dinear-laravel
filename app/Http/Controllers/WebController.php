@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Food;
 
 
 class WebController extends Controller
@@ -37,33 +38,21 @@ class WebController extends Controller
 
     }
 
-public function foods()
+    public function foods()
 {
-    $foods = [
-
-        [
-            'name' => 'Burger',
-            'image' => 'burger.jpg',
-            'model' => 'burger2.glb',
-            'route' => 'burger.3d',
-        ],
-
-        [
-            'name' => 'Tikka',
-            'image' => 'tickaa.png',
-            'model' => 'tikka 3d model2.glb',
-            'route' => 'tikka.3d',
-        ],
-
-        [
-            'name' => 'Boti Roll',
-            'image' => 'boti roll image.jpg',
-            'model' => 'boti roll.glb',
-            'route' => 'boti_roll.3d',
-        ],
-
-    ];
+    $foods = Food::where('status',1)->latest()->get();
 
     return view('user.foods', compact('foods'));
+}
+
+
+public function showFood(Food $food)
+{
+    $recommended = Food::where('id', '!=', $food->id)
+        ->where('status', 1)
+        ->take(4)
+        ->get();
+
+    return view('user.food_detail', compact('food', 'recommended'));
 }
 }
