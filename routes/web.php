@@ -61,6 +61,7 @@ Route::middleware([
 
 });
 
+Route::get('/profile', function () { return view('restaurant.profile.index'); })->name('restaurant.profile');
 
 
 // if(Auth::id()){
