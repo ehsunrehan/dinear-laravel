@@ -13,6 +13,10 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    const ROLE_USER = 0;
+    const ROLE_ADMIN = 1;
+    const ROLE_RESTAURANT = 2;
+
     use HasApiTokens;
 
     /** @use HasFactory<UserFact    ory> */
@@ -70,22 +74,20 @@ class User extends Authenticatable
 
 
 
-
-    public function isAdmin()
+public function isAdmin()
 {
-    return $this->user_role == 1;
+    return $this->user_role == self::ROLE_ADMIN;
 }
 
 public function isRestaurant()
 {
-    return $this->user_role == 2;
+    return $this->user_role == self::ROLE_RESTAURANT;
 }
 
 public function isUser()
 {
-    return $this->user_role == 0;
+    return $this->user_role == self::ROLE_USER;
 }
-
 
 
 }

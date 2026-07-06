@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\FoodController;
+use App\Http\Controllers\Restaurant\RestaurantDashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -49,6 +50,19 @@ Route::middleware([
 
 
 
+Route::middleware([
+    'auth',
+    'verified',
+    'restaurant'
+])->prefix('restaurant')->name('restaurant.')->group(function () {
+
+    Route::get('/dashboard', [RestaurantDashboardController::class, 'index'])
+        ->name('dashboard');
+
+});
+
+
+
 // if(Auth::id()){
 // if(Auth::User()->user_role == "0"){
 // return view('user.index');
@@ -73,11 +87,15 @@ Route::middleware([
 
     Route::get('/dashboard', function () {
 
-        if (Auth::user()->user_role == 1) {
+        if (Auth::user()->isAdmin()) {
             return redirect('/admin/food');
         }
 
-        return redirect('/');
+        if (Auth::user()->isRestaurant()) {
+            return redirect('/restaurant/dashboard');
+        }
+
+        return redirect('/');   
 
     })->name('dashboard');
 
