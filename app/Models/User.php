@@ -15,7 +15,7 @@ class User extends Authenticatable
 {
     use HasApiTokens;
 
-    /** @use HasFactory<UserFactory> */
+    /** @use HasFactory<UserFact    ory> */
     use HasFactory;
 
     use HasProfilePhoto;
@@ -67,4 +67,25 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+
+
+    public function isAdmin()
+{
+    return $this->user_role == 1;
+}
+
+public function isRestaurant()
+{
+    return $this->user_role == 2;
+}
+
+public function isUser()
+{
+    return $this->user_role == 0;
+}
+
+
+
 }
